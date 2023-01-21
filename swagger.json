@@ -1,0 +1,250 @@
+{
+      "info": {
+            "title": "E-Commerce Service",
+            "version": "1.0.0",
+            "description": "A sample API"
+      },
+      "host": "localhost:8080",
+      "basePath": "/",
+      "swagger": "2.0",
+      "paths": {
+            "/api/auth/signin": {
+                  "post": {
+                        "description": "Login to the application",
+                        "tags": [
+                              "Authentication"
+                        ],
+                        "produces": [
+                              "application/json"
+                        ],
+                        "parameters": [
+                              {
+                                    "$ref": "#/parameters/username"
+                              },
+                              {
+                                    "$ref": "#/parameters/password"
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "type": "object",
+                                          "properties": {
+                                                "id": {
+                                                      "type": "string"
+                                                },
+                                                "username": {
+                                                      "type": "string"
+                                                },
+                                                "email": {
+                                                      "type": "string"
+                                                },
+                                                "password": {
+                                                      "type": "string"
+                                                },
+                                                "roles": {
+                                                      "type": "object"
+                                                },
+                                                "accessToken" :{
+                                                      "type": "string"
+                                                },
+                                                "refreshToken" :{
+                                                      "type": "string"
+                                                }
+                                          }
+                                    }
+                              }
+                        }
+                  }
+            },
+            "/api/auth/signup": {
+                  "post": {
+                        "description": "Register to the application",
+                        "tags": [
+                              "Authentication"
+                        ],
+                        "produces": [
+                              "application/json"
+                        ],
+                        "parameters": [
+                              {
+                                    "$ref": "#/parameters/username"
+                              },
+                              {
+                                    "$ref": "#/parameters/email"
+                              },
+                              {
+                                    "$ref": "#/parameters/password"
+                              }
+                        ],
+                        "responses": {
+                              "201": {
+                                    "description": "",
+                                    "schema": {
+                                          "type": "object",
+                                          "properties": {
+                                                "message": {
+                                                      "type": "string",
+                                                      "example":"User was registered successfully!"
+                                                }
+                                          }
+                                    }
+                              },
+                              "500": {
+                                    "description": "",
+                                    "schema": {
+                                          "type": "object",
+                                          "properties": {
+                                                "message": {
+                                                      "type": "object",
+                                                      "example":"{...}"
+                                                }
+                                          }
+                                    }
+                              }
+                        }
+                  }
+            },
+            "/api/auth/signout": {
+                  "post": {
+                        "description": "Log Out to the application",
+                        "tags": [
+                              "Authentication"
+                        ],
+                        "produces": [
+                              "application/json"
+                        ],
+                        "parameters": [
+                              {
+                                    "name": "Authorization",
+                                    "in": "header",
+                                    "description": "JWT access token",
+                                    "required": true,
+                                    "type": "string"
+                                  }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "type": "object",
+                                          "properties": {
+                                                "message": {
+                                                      "type": "string",
+                                                      "example":"You've been signed out!"
+                                                }
+                                          }
+                                    }
+                              }
+                        }
+                  }
+            },
+            "/api/auth/refreshtoken": {
+                  "post": {
+                        "description": "Refresh Token to the application",
+                        "tags": [
+                              "Authentication"
+                        ],
+                        "produces": [
+                              "application/json"
+                        ],
+                        "parameters": [
+                              {
+                                    "$ref": "#/parameters/refreshToken"
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "type": "object",
+                                          "properties": {
+                                                "accessToken": {
+                                                      "type": "string"
+                                                },
+                                                "refreshToken": {
+                                                      "type": "string"
+                                                }
+                                          }
+                                    }
+                              },
+                              "403": {
+                                    "description": "",
+                                    "schema": {
+                                          "type": "object",
+                                          "properties": {
+                                                "message": {
+                                                      "type": "string",
+                                                      "example":"Refresh Token is required!"
+                                                }
+                                          }
+                                    }
+                              },
+                              "500": {
+                                    "description": "",
+                                    "schema": {
+                                          "type": "object",
+                                          "properties": {
+                                                "message": {
+                                                      "type": "object",
+                                                      "example":"{...}"
+                                                }
+                                          }
+                                    }
+                              }
+                        }
+                  }
+            }
+      },
+      "responses": {},
+      "parameters": {
+            "username": {
+                  "name": "username",
+                  "description": "Username to use for login.",
+                  "in": "formData",
+                  "required": true,
+                  "type": "string"
+            },
+            "email": {
+                  "name": "email",
+                  "description": "E-mail to use for login.",
+                  "in": "formData",
+                  "required": true,
+                  "type": "string"
+            },
+            "password": {
+                  "name": "password",
+                  "description": "Password to use for login.",
+                  "in": "formData",
+                  "required": true,
+                  "type": "string"
+            },
+            "refreshToken": {
+                  "name": "refreshToken",
+                  "description": "Refresh Token to use for login.",
+                  "in": "formData",
+                  "required": true,
+                  "type": "string"
+            }
+      },
+      "securityDefinitions": {
+            "bearerAuth": {
+                  "name": "Authorization",
+                  "in": "header",
+                  "type": "apiKey",
+                  "description": "JWT Authorization header"
+            }
+      },
+      "security": [
+            {
+                  "bearerAuth": []
+            }
+      ],
+      "tags": [
+            {
+                  "name": "Authentication",
+                  "description": "Authentication"
+            }
+      ]
+}
